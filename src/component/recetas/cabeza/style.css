@@ -1,0 +1,23 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    --primary-background: #f2f1df;
+    --secondary-background: #592a19;
+    --primary-text: #f2b138;
+    --secondary-text: #f2ca52;
+    --others: #a64826;
+  }
+ .button-container{
+     display: flex;
+     justify-content: space-between;
+ }
+ .delete-button:hover{
+     background: var(--secondary-background)
+ }
+ .grupo{
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+ }
+ 

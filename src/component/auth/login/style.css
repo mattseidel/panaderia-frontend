@@ -1,0 +1,21 @@
+* {
+  --primary-background: #f2f1df;
+  --secondary-background: #592a19;
+  --primary-text: #f2b138;
+  --secondary-text: #f2ca52;
+  --others: #a64826;
+}
+
+.login-button{
+  margin-top: 2rem;
+  background: var(--others);
+}
+
+.button{
+  background:none;
+  transition: background ease .5s;
+}
+
+.button:hover{
+  background: var(--others)
+}
