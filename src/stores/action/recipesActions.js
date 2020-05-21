@@ -11,8 +11,8 @@ import { returnErrors } from "../action/errorAction";
 export const getRecipes = () => (dispatch) => {
   dispatch(setRecipesLoading());
   Axios.get("https://ec2-3-19-185-142.us-east-2.compute.amazonaws.com:5000/api/recetas/")
-    
-      setTimeout(() => {
+    .then((res) => {
+      
         dispatch({
           type: GET_RECIPES,
           payload: res.data,
