@@ -10,7 +10,7 @@ import { returnErrors } from "../action/errorAction";
 
 export const getRecipes = () => (dispatch) => {
   dispatch(setRecipesLoading());
-  Axios.get("http://ec2-3-19-185-142.us-east-2.compute.amazonaws.com:5000/api/recetas/")
+  Axios.get("https://recetapp-mattseidel.herokuapp.com/api/recetas/")
     .then((res) => {
       
         dispatch({
@@ -27,7 +27,7 @@ export const getRecipes = () => (dispatch) => {
 };
 
 export const deleteRecipes = (id) => (dispatch) => {
-  Axios.delete(`api/recetas/${id}`)
+  Axios.delete(`https://recetapp-mattseidel.herokuapp.com/api/recetas/${id}`)
     .then((res) => {
       dispatch({
         type: DELETE_RECIPES,
@@ -56,7 +56,7 @@ export const addRecipe = (receta) => (dispatch, getState) => {
     config.headers["x-auth-token"] = token;
   }
 
-  Axios.post("api/recetas", receta, config)
+  Axios.post("https://recetapp-mattseidel.herokuapp.com/api/recetas", receta, config)
     .then((res) => {
       console.log(res);
       dispatch({

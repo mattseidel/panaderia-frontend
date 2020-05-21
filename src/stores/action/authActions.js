@@ -13,7 +13,7 @@ import md5 from "md5";
 //cheking token & load user
 export const loadUser = () => (dispatch, getState) => {
   axios
-    .get("/api/auth", tokenConfig(getState))
+    .get("https://recetapp-mattseidel.herokuapp.com/api/auth", tokenConfig(getState))
     .then((res) => dispatch({ type: USER_LOADED, payload: res.data }))
     .catch((err) => {
       dispatch(returnErrors(err.response.data, err.response.status));
@@ -26,7 +26,7 @@ export const login = (user) => (dispatch) => {
   var { username, password } = user;
   password = md5(password);
   axios
-    .post("/api/auth", { username, password })
+    .post("https://recetapp-mattseidel.herokuapp.com/api/auth", { username, password })
     .then((res) => {
       dispatch({ type: LOGIN_SUCCESS, payload: res.data });
     })
