@@ -3,6 +3,7 @@ import "./style.css";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { loadUser, logout } from "../../stores/action/authActions";
+import { getRecipes } from '../../stores/action/recipesActions'
 import Login from "../auth/login";
 
 class Navbar extends Component {
@@ -18,6 +19,7 @@ class Navbar extends Component {
   }
 
   componentDidMount() {
+    this.props.getRecipes()
     this.props.loadUser();
   }
 
@@ -76,4 +78,4 @@ const mapStateToDispatch = (dispatch) => {
   dispatch(loadUser);
 };
 
-export default connect(mapStateToProps, { loadUser, logout })(Navbar);
+export default connect(mapStateToProps, { loadUser, logout, getRecipes })(Navbar);

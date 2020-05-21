@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import RecetaCabeza from "../component/recetas/cabeza";
 
-class Index extends Component {
+class Recipes extends Component {
   constructor(props) {
     super(props);
     this.state = {};
   }
   render() {
-    return <h1>hola mundo</h1>;
+    return <RecetaCabeza></RecetaCabeza>;
   }
 }
 
-export default Index;
+export default Recipes;

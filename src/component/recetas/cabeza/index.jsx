@@ -21,9 +21,9 @@ class RecetaCabeza extends Component {
     name: "",
   };
 
-  componentDidMount() {
-    this.props.getRecipes();
-  }
+  // componentDidMount() {
+  //   this.props.getRecipes();
+  // }
 
   onDeleteClick = (id) => {
     this.props.deleteRecipes(id);
@@ -71,6 +71,6 @@ const mapStateToProps = (state) => ({
   receta: state.receta,
 });
 
-export default connect(mapStateToProps, { getRecipes, deleteRecipes })(
+export default connect(mapStateToProps, { getRecipes,  deleteRecipes })(
   RecetaCabeza
 );

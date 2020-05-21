@@ -10,10 +10,9 @@ import { returnErrors } from "../action/errorAction";
 
 export const getRecipes = () => (dispatch) => {
   dispatch(setRecipesLoading());
-  Axios.get("http://ec2-3-19-185-142.us-east-2.compute.amazonaws.com:5000/api/recetas/")
-    .then((res) => {
-      console.log(res.data.msg);
-      
+  Axios.get("https://ec2-3-19-185-142.us-east-2.compute.amazonaws.com:5000/api/recetas/")
+    
+      setTimeout(() => {
         dispatch({
           type: GET_RECIPES,
           payload: res.data,
@@ -21,6 +20,8 @@ export const getRecipes = () => (dispatch) => {
       
     })
     .catch((err) => {
+      console.log(err);
+
       dispatch(returnErrors(err.response.data, err.response.status));
     });
 };
