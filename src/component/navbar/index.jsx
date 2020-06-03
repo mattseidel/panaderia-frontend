@@ -3,7 +3,7 @@ import "./style.css";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { loadUser, logout } from "../../stores/action/authActions";
-import { getRecipes } from '../../stores/action/recipesActions'
+import { getRecipes } from "../../stores/action/recipesActions";
 import Login from "../auth/login";
 
 class Navbar extends Component {
@@ -13,13 +13,15 @@ class Navbar extends Component {
       links: [
         { name: "Home", url: "/", icon: "fas fa-home" },
         { name: "Recetas", url: "/recetas", icon: "fas fa-utensils" },
+        { name: "Materia prima", url: "/materia", icon: "fas fa-bread-slice" },
       ],
       open: true,
+      nombre: "",
     };
   }
 
   componentDidMount() {
-    this.props.getRecipes()
+    this.props.getRecipes();
     this.props.loadUser();
   }
 
@@ -33,7 +35,7 @@ class Navbar extends Component {
   }
 
   render() {
-    let { user } = this.props.user.auth;
+    let { user } = this.props.user;
     return (
       <nav>
         <div className="hamburguer" onClick={() => this.handleChange()}>
@@ -50,7 +52,7 @@ class Navbar extends Component {
               </Link>
             </li>
           ))}
-          {this.props.user.auth.isAuthenticated === false ? (
+          {this.props.user.isAuthenticated === false ? (
             <li>
               <Login />
             </li>
@@ -71,11 +73,9 @@ class Navbar extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  user: state,
+  user: state.auth,
 });
 
-const mapStateToDispatch = (dispatch) => {
-  dispatch(loadUser);
-};
-
-export default connect(mapStateToProps, { loadUser, logout, getRecipes })(Navbar);
+export default connect(mapStateToProps, { loadUser, logout, getRecipes })(
+  Navbar
+);

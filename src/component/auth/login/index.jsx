@@ -18,8 +18,8 @@ import PropTypes from 'prop-types'
 class Login extends Component {
   state = {
     modale: false,
-    username: "",
-    password: "",
+    nombreUsuario: "",
+    contraseña: "",
     msg: null,
   };
 
@@ -38,8 +38,8 @@ class Login extends Component {
   onsSubmit = e => {
     e.preventDefault();
     const user = {
-      username: this.state.username,
-      password: this.state.password,
+      nombreUsuario: this.state.nombreUsuario,
+      contraseña: this.state.contraseña,
     };
     this.props.login(user);
   };
@@ -57,21 +57,21 @@ class Login extends Component {
           <ModalBody>
             <Form onSubmit={this.onsSubmit}>
               <FormGroup>
-                <Label for="userName">Nombre de usuario</Label>
+                <Label for="nombreUsuario">Nombre de usuario</Label>
                 <Input
                   type="text"
-                  name="username"
-                  id="username"
+                  name="nombreUsuario"
+                  id="nombreUsuario"
                   placeholder="Agrega tu nombre de usuario"
                   onChange={this.onChange}
                   required
                 ></Input>
               </FormGroup>
               <FormGroup>
-                <Label for="password">Contraseña</Label>
+                <Label for="contraseña">Contraseña</Label>
                 <Input
                   type="password"
-                  name="password"
+                  name="contraseña"
                   placeholder="Ingrese la contraseña"
                   onChange={this.onChange}
                   required

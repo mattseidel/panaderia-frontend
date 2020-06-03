@@ -1,5 +1,5 @@
 import Axios from "axios";
-const endpoint = "http://localhost:5000/";
+const endpoint = "https://recetapp-mattseidel.herokuapp.com/";
 
 const headers = () => {
   const h = new Headers();

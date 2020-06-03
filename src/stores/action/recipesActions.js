@@ -10,14 +10,12 @@ import { returnErrors } from "../action/errorAction";
 
 export const getRecipes = () => (dispatch) => {
   dispatch(setRecipesLoading());
-  Axios.get("https://recetapp-mattseidel.herokuapp.com/api/recetas/")
+  Axios.get("https://recetapp-mattseidel.herokuapp.com/api/producto/")
     .then((res) => {
-      
-        dispatch({
-          type: GET_RECIPES,
-          payload: res.data,
-        });
-      
+      dispatch({
+        type: GET_RECIPES,
+        payload: res.data,
+      });
     })
     .catch((err) => {
       console.log(err);
@@ -26,12 +24,27 @@ export const getRecipes = () => (dispatch) => {
     });
 };
 
-export const deleteRecipes = (id) => (dispatch) => {
-  Axios.delete(`https://recetapp-mattseidel.herokuapp.com/api/recetas/${id}`)
+export const deleteRecipes = (idproducto) => (dispatch, getState) => {
+  //get Token from localestorage
+  const token = getState().auth.token;
+
+  //headers
+  const config = {
+    headers: {
+      "Content-type": "application/json",
+    },
+  };
+
+  //if token, add to headers
+
+  if (token) {
+    config.headers["x-auth-token"] = token;
+  }
+  Axios.delete(`https://recetapp-mattseidel.herokuapp.com/api/producto/${idproducto}`, config)
     .then((res) => {
       dispatch({
         type: DELETE_RECIPES,
-        payload: id,
+        payload: idproducto,
       });
     })
     .catch((err) => {
@@ -55,8 +68,7 @@ export const addRecipe = (receta) => (dispatch, getState) => {
   if (token) {
     config.headers["x-auth-token"] = token;
   }
-
-  Axios.post("https://recetapp-mattseidel.herokuapp.com/api/recetas", receta, config)
+  Axios.post("https://recetapp-mattseidel.herokuapp.com/api/producto", receta, config)
     .then((res) => {
       console.log(res);
       dispatch({

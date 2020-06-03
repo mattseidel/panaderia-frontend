@@ -11,13 +11,17 @@ import {
 } from "reactstrap";
 import { connect } from "react-redux";
 import { addRecipe } from "../../../../stores/action/recipesActions";
+import {
+  getPlace,
+  getCategory,
+} from "../../../../stores/action/categoriesAction";
 
 class AddRecipeModal extends Component {
   state = {
     modal: false,
-    nombre_receta: "",
-    producto: "",
-    comentarios: "",
+    nombre: "",
+    idcategoria_producto: 2,
+    idubicacion: 1,
   };
 
   toggle = () => {
@@ -26,20 +30,27 @@ class AddRecipeModal extends Component {
     });
   };
 
+  componentDidMount() {
+    this.props.getPlace();
+    this.props.getCategory();
+  }
+
   onSubmit = (e) => {
     e.preventDefault();
 
     const newRecipe = {
-      nombre_receta: this.state.nombre_receta,
-      producto: this.state.producto,
-      comentarios: this.state.comentarios,
+      nombre: this.state.nombre,
+      idcategoria_producto: this.state.idcategoria_producto,
+      idubicacion: this.state.idubicacion,
     };
+
+    // console.log(newRecipe);
 
     //agregar receta por addRecipe action
     this.props.addRecipe(newRecipe);
 
     //close modale
-    this.toggle()
+    this.toggle();
   };
 
   onChange = (e) => {
@@ -47,6 +58,10 @@ class AddRecipeModal extends Component {
   };
 
   render() {
+    const { place, categories } = this.props;
+    if (this.props.isLoading) {
+      return <div></div>;
+    }
     return (
       <div>
         <Button className="button" onClick={this.toggle}>
@@ -57,35 +72,43 @@ class AddRecipeModal extends Component {
           <ModalBody>
             <Form onSubmit={this.onSubmit}>
               <FormGroup>
-                <Label for="nombre_receta">Nombre de la receta</Label>
+                <Label for="nombre">Nombre de la receta</Label>
                 <Input
                   type="text"
-                  name="nombre_receta"
-                  id="nombre_receta"
+                  name="nombre"
+                  id="nombre"
                   placeholder="Agregar el nuevo nombre de la receta"
                   onChange={this.onChange}
                 ></Input>
               </FormGroup>
               <FormGroup>
-                <Label for="producto">Producto</Label>
+                <Label for="idcategoria_producto">Ubicacion</Label>
                 <Input
-                  pattern="[0-9]+"
-                  type="text"
-                  name="producto"
-                  id="producto"
-                  placeholder="Agregar la nueva producto"
+                  type="select"
+                  name="idubicacion"
+                  id="idubicacion"
                   onChange={this.onChange}
-                ></Input>
+                >
+                  {place.map((p) => (
+                    <option value={p.idubicacion}>
+                      {`${p.letra}-${p.numero}`}{" "}
+                    </option>
+                  ))}
+                </Input>
               </FormGroup>
               <FormGroup>
-                <Label for="comentario">Comentario</Label>
+                <Label for="comentario">Categoria</Label>
                 <Input
-                  type="text"
-                  name="comentarios"
-                  id="comentarios"
+                  type="select"
+                  name="idcategoria_producto"
+                  id="idcategoria_producto"
                   placeholder="Agregar el comentario"
                   onChange={this.onChange}
-                ></Input>
+                >
+                  {categories.map((c) => (
+                    <option value={c.idcategoria_producto}>{c.nombre}</option>
+                  ))}
+                </Input>
               </FormGroup>
               <Button className="button" block>
                 Agregar Receta
@@ -98,8 +121,11 @@ class AddRecipeModal extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-    recipes: state.recipes
-})
+const mapStateToProps = (state) => ({
+  place: state.categoria.place,
+  categories: state.categoria.categories,
+});
 
-export default connect( mapStateToProps, {addRecipe})(AddRecipeModal);
+export default connect(mapStateToProps, { addRecipe, getPlace, getCategory })(
+  AddRecipeModal
+);

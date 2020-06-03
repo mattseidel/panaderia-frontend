@@ -1,19 +1,14 @@
 import React, { Component } from "react";
-import {
-  Container,
-  ListGroup,
-  ListGroupItem,
-  Button,
-} from "reactstrap";
+import { Container, ListGroup, ListGroupItem, Button } from "reactstrap";
 import "./style.css";
 import { connect } from "react-redux";
 import {
   getRecipes,
   deleteRecipes,
 } from "../../../stores/action/recipesActions";
-import PropTypes from "prop-types";
 import AddRecipeModal from "./add Recipe/";
 import Loading from "../../loading";
+import { getRecipeDetail } from "../../../stores/action/recetaDetalleActions";
 
 class RecetaCabeza extends Component {
   state = {
@@ -21,12 +16,13 @@ class RecetaCabeza extends Component {
     name: "",
   };
 
-  // componentDidMount() {
-  //   this.props.getRecipes();
-  // }
-
   onDeleteClick = (id) => {
     this.props.deleteRecipes(id);
+  };
+  onDetailsClick = (id = null) => {
+    if (id == null) return;
+    this.props.getRecipeDetail(id);
+    window.location.replace(`/recetas/${id}`);
   };
   convertDate = (date) => {
     return new Date(date).toLocaleDateString();
@@ -34,30 +30,36 @@ class RecetaCabeza extends Component {
   render() {
     const { recipes } = this.props.receta;
     const { loading } = this.props.receta;
-    {
-      console.log(this.props);
-    }
     if (loading) {
       return <Loading></Loading>;
     } else {
       return (
         <Container className="mt-2 p-4">
-          <AddRecipeModal />
-          
+          {this.props.user.isAuthenticated ? <AddRecipeModal /> : null}
+
           <ListGroup>
             {recipes.map((data) => (
-              <div key={data.id}>
-                <ListGroupItem>{data.nombre_receta}</ListGroupItem>
+              <div key={data.iPproducto}>
+                <ListGroupItem>{data.nombre}</ListGroupItem>
                 <ListGroupItem>
-                  {this.convertDate(data.ulima_modificacion)}
+                  {this.convertDate(data.ultima_modificacion)}
                 </ListGroupItem>
-                <ListGroupItem>{data.comentarios} </ListGroupItem>
-                <Button
-                  className="button delete-button"
-                  onClick={() => this.onDeleteClick(data.id)}
-                >
-                  Eliminar Receta
-                </Button>
+                {this.props.user.isAuthenticated ? (
+                  <>
+                    <Button
+                      className="button delete-button"
+                      onClick={() => this.onDeleteClick(data.idProducto)}
+                    >
+                      Eliminar Receta
+                    </Button>
+                    <Button
+                      className="button delete-button"
+                      onClick={() => this.onDetailsClick(data.idProducto)}
+                    >
+                      Detalles
+                    </Button>
+                  </>
+                ) : null}
               </div>
             ))}
           </ListGroup>
@@ -69,8 +71,11 @@ class RecetaCabeza extends Component {
 
 const mapStateToProps = (state) => ({
   receta: state.receta,
+  user: state.auth,
 });
 
-export default connect(mapStateToProps, { getRecipes,  deleteRecipes })(
-  RecetaCabeza
-);
+export default connect(mapStateToProps, {
+  getRecipeDetail,
+  getRecipes,
+  deleteRecipes,
+})(RecetaCabeza);

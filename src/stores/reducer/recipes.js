@@ -13,6 +13,7 @@ const initialState = {
 export default function (state = initialState, action) {
   switch (action.type) {
     case GET_RECIPES:
+      console.log(action.payload)
       return {
         ...state,
         recipes: action.payload,
@@ -21,7 +22,7 @@ export default function (state = initialState, action) {
     case DELETE_RECIPES:
       return {
         ...state,
-        recipes: state.recipes.filter((d) => d.id !== action.payload),
+        recipes: state.recipes.filter((d) => d.idProducto !== action.payload),
       };
     case ADD_RECIPES:
       return {

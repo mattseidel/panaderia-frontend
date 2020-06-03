@@ -14,7 +14,10 @@ import md5 from "md5";
 export const loadUser = () => (dispatch, getState) => {
   axios
     .get("https://recetapp-mattseidel.herokuapp.com/api/auth", tokenConfig(getState))
-    .then((res) => dispatch({ type: USER_LOADED, payload: res.data }))
+    .then((res) => {
+      console.log(res.data.user);
+      dispatch({ type: USER_LOADED, payload: res.data });
+    })
     .catch((err) => {
       dispatch(returnErrors(err.response.data, err.response.status));
       dispatch({ type: AUTH_ERROR });
@@ -23,10 +26,10 @@ export const loadUser = () => (dispatch, getState) => {
 
 export const login = (user) => (dispatch) => {
   dispatch({ type: USER_LOADING });
-  var { username, password } = user;
-  password = md5(password);
+  var { nombreUsuario, contraseña } = user;
+  contraseña = md5(contraseña);
   axios
-    .post("https://recetapp-mattseidel.herokuapp.com/api/auth", { username, password })
+    .post("https://recetapp-mattseidel.herokuapp.com/api/auth", { nombreUsuario, contraseña })
     .then((res) => {
       dispatch({ type: LOGIN_SUCCESS, payload: res.data });
     })
@@ -40,10 +43,6 @@ export const login = (user) => (dispatch) => {
 export const tokenConfig = (getState) => {
   //get Token from localestorage
   const token = getState().auth.token;
-  console.log("getting token");
-
-  console.log(token);
-
   //headers
   const config = {
     headers: {

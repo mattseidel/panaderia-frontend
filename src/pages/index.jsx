@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import RecetaCabeza from "../component/recetas/cabeza";
 
 class Index extends Component {
   constructor(props) {

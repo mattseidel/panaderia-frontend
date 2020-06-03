@@ -14,7 +14,13 @@ const initialState = {
   isAuthenticated: null,
   isLoading: false,
   user: [
-    { nombre: "", id: "", numero_documento: "", email: "", tipo_usuario: "" },
+    {
+      nombre: "",
+      idtrabajdor: "",
+      nombreUsuario: "",
+      email: "",
+      nivelAcceso: "",
+    },
   ],
   msg: "",
 };
@@ -31,14 +37,14 @@ export default function (state = initialState, action) {
         ...state,
         isAuthenticated: true,
         isLoading: false,
-        user: action.payload.user[0],
+        user: action.payload.user,
       };
     case LOGIN_SUCCESS:
-      window.location.replace("/");
       localStorage.setItem("token", action.payload.token);
+      window.location.replace('/')
       return {
         ...state,
-        ...action.payload,
+        ...action.payload.user[0].data[0],
         isAuthenticated: true,
         isLoading: false,
       };
@@ -52,10 +58,10 @@ export default function (state = initialState, action) {
         user: [
           {
             nombre: "",
-            id: "",
-            numero_documento: "",
+            idtrabajdor: "",
+            nombreUsuario: "",
             email: "",
-            tipo_usuario: "",
+            nivelAcceso: "",
           },
         ],
         isAuthenticated: false,
@@ -63,7 +69,7 @@ export default function (state = initialState, action) {
       };
     case LOGOUT_SUCCESS:
       localStorage.removeItem("token");
-      window.location.replace("/");
+
       return {
         ...state,
         token: "",
@@ -80,9 +86,9 @@ export default function (state = initialState, action) {
         isLoading: false,
       };
     case REGISTER_SUCCESS:
-      return{
+      return {
         ...state,
-        msg: ''
+        msg: "",
       };
     default:
       return state;
