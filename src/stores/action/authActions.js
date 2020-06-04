@@ -5,6 +5,7 @@ import {
   LOGIN_FAIL,
   LOGIN_SUCCESS,
   LOGOUT_SUCCESS,
+  DATABASE
 } from "./types";
 import axios from "axios";
 import { returnErrors } from "./errorAction";
@@ -13,7 +14,7 @@ import md5 from "md5";
 //cheking token & load user
 export const loadUser = () => (dispatch, getState) => {
   axios
-    .get("https://recetapp-mattseidel.herokuapp.com/api/auth", tokenConfig(getState))
+    .get(`${DATABASE}/api/auth`, tokenConfig(getState))
     .then((res) => {
       console.log(res.data.user);
       dispatch({ type: USER_LOADED, payload: res.data });
@@ -29,7 +30,7 @@ export const login = (user) => (dispatch) => {
   var { nombreUsuario, contraseña } = user;
   contraseña = md5(contraseña);
   axios
-    .post("https://recetapp-mattseidel.herokuapp.com/api/auth", { nombreUsuario, contraseña })
+    .post(`${DATABASE}/api/auth`, { nombreUsuario, contraseña })
     .then((res) => {
       dispatch({ type: LOGIN_SUCCESS, payload: res.data });
     })

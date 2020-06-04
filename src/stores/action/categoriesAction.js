@@ -1,11 +1,12 @@
 import { GET_PLACE, GET_CATEGORY } from "./types";
 import axios from "axios";
 import { returnErrors } from "./errorAction";
+import url from './config/database.json'
 
 export const getPlace = () => (dispatch) => {
   
   axios
-    .get("https://recetapp-mattseidel.herokuapp.com/api/ubicacion")
+    .get(`${url}/api/ubicacion`)
     .then((res) => {
      
       dispatch({ type: GET_PLACE, payload: res.data });
@@ -18,7 +19,7 @@ export const getPlace = () => (dispatch) => {
 export const getCategory = () => (dispatch) => {
   
   axios
-    .get("https://recetapp-mattseidel.herokuapp.com/api/tipoProducto")
+    .get(`${url}/api/tipoProducto`)
     .then((res) => {
      
       dispatch({ type: GET_CATEGORY, payload: res.data });

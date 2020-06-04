@@ -75,12 +75,13 @@ function AddRecipe({ id, materiaPrima, addMateriaPrima, msg, clearErrors }) {
                 name="comentarios"
                 id="comentarios"
                 onChange={onChange}
+                required
               />
             </FormGroup>
             {error.status ? (
               <Alert color="danger">
                 <h4 className="alert-heading">Error {error.status} </h4>
-                <p>{error.msg.msg.slice(0,error.msg.msg.indexOf(':')) ==='ER_DUP_ENTRY' ? 'La materia prima ya fue agregada a la receta': error.msg.msg}
+                <p>{error.msg.msg}
                 </p>
               </Alert>
             ) : null}

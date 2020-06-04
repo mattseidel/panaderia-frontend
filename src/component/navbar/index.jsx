@@ -11,7 +11,7 @@ class Navbar extends Component {
     super(props);
     this.state = {
       links: [
-        { name: "Home", url: "/", icon: "fas fa-home" },
+        { name: "Produccion", url: "/", icon: "fas fa-home" },
         { name: "Recetas", url: "/recetas", icon: "fas fa-utensils" },
         { name: "Materia prima", url: "/materia", icon: "fas fa-bread-slice" },
       ],
@@ -27,6 +27,9 @@ class Navbar extends Component {
 
   handleLogout = () => {
     this.props.logout();
+  };
+  handleClick = () => {
+    this.setState({ open: true });
   };
 
   handleChange() {
@@ -46,7 +49,7 @@ class Navbar extends Component {
         <ul className={this.state.open ? "nav-links" : "nav-links open"}>
           {this.state.links.map((link) => (
             <li>
-              <Link to={link.url}>
+              <Link to={link.url} onClick={() => this.handleClick()}>
                 <i className={link.icon}></i>
                 {link.name}
               </Link>

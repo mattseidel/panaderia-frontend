@@ -5,6 +5,7 @@ import recipeReducer from "./recipes";
 import categoriesReducer from "./categories";
 import detailReducer from "./recetaDetalles";
 import materiaPrimaReducer from "./materiaPrima";
+import produccionReducer from "./produccion";
 
 let store = combineReducers({
   auth: authReducer,
@@ -13,6 +14,7 @@ let store = combineReducers({
   categoria: categoriesReducer,
   detallesReceta: detailReducer,
   materiaPrima: materiaPrimaReducer,
+  produccion: produccionReducer,
 });
 
 export default store;

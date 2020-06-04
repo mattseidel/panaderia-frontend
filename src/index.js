@@ -9,6 +9,7 @@ import { Provider } from "react-redux";
 import store from "./stores/store";
 import Details from "./pages/recipes_detail";
 import MateriaPrima from "./pages/materia_prima";
+import ProduccionDetalle from "./pages/produccion_detail";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -20,6 +21,7 @@ ReactDOM.render(
           <Route exact path="/recetas" component={recipes} />
           <Route exact path="/recetas/:id" component={Details} />
           <Route exact path="/materia" component={MateriaPrima} />
+          <Route exact path="/produccion/:id" component={ProduccionDetalle} />
         </Switch>
       </Provider>
     </BrowserRouter>

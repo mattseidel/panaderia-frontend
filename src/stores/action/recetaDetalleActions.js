@@ -1,10 +1,10 @@
-import { GET_RECIPE_DETAIL } from "./types";
+import { GET_RECIPE_DETAIL, DATABASE } from "./types";
 import { returnErrors } from "./errorAction";
 import axios from "axios";
 
 export const getRecipeDetail = (id) => (dispatch, getState) => {
   axios
-    .get(`https://recetapp-mattseidel.herokuapp.com/api/producto/${id}`, tokenConfig(getState))
+    .get(`${DATABASE}/api/producto/${id}`, tokenConfig(getState))
     .then((res) => {
       dispatch({
         type: GET_RECIPE_DETAIL,

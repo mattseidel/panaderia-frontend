@@ -3,13 +3,16 @@ import {
   ADD_MATERIA_PRIMA,
   DELETE_MATERIA_PRIMA,
   ADD_MATERIA,
+  DATABASE
 } from "./types";
 import axios from "axios";
 import { returnErrors } from "./errorAction";
 
+
 export const getMateriaPrima = () => (dispatch) => {
+  
   axios
-    .get("https://recetapp-mattseidel.herokuapp.com/api/materia")
+    .get(`${DATABASE}/api/materia`)
     .then((res) => {
       dispatch({ type: GET_MATERIA_PRIMA, payload: res.data });
     })
@@ -19,8 +22,9 @@ export const getMateriaPrima = () => (dispatch) => {
 };
 
 export const addMateria = (producto) => (dispatch, getState) => {
+  
   axios
-    .post("https://recetapp-mattseidel.herokuapp.com/api/materia", producto, tokenConfig(getState))
+    .post(`${DATABASE}/api/materia`, producto, tokenConfig(getState))
     .catch((err) => {
       dispatch(returnErrors(err.response.data, err.response.status));
     })
@@ -35,7 +39,7 @@ export const addMateria = (producto) => (dispatch, getState) => {
 
 export const addMateriaPrima = (producto) => (dispatch, getState) => {
   axios
-    .post("https://recetapp-mattseidel.herokuapp.com/api/receta", producto, tokenConfig(getState))
+    .post(`${DATABASE}/api/receta`, producto, tokenConfig(getState))
     .then((data) => {
       dispatch({
         type: ADD_MATERIA_PRIMA,
@@ -53,7 +57,7 @@ export const deleteMateriaPrima = (idProducto, idMateria) => (
 ) => {
   axios
     .delete(
-      `https://recetapp-mattseidel.herokuapp.com/api/receta/producto/${idProducto}/materia/${idMateria}`,
+      `${DATABASE}/api/receta/producto/${idProducto}/materia/${idMateria}`,
       tokenConfig(getState)
     )
     .then((res) => {
