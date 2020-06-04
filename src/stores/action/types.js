@@ -28,4 +28,4 @@ export const GET_PRODUCCION_DIA = "GET_PRODUCCION_DIA";
 export const GET_PRODUCCION_PRODUCTO= "GET_PRODUCCION_PRODUCTO";
 export const ADD_PRODUCCION = "ADD_PRODUCCION";
 export const LOADING_PRODUCTO = "LOADING_PRODUCTO";
-export const DATABASE = 'http://localhost:5000'
+export const DATABASE = 'https://recetapp-mattseidel.herokuapp.com/'

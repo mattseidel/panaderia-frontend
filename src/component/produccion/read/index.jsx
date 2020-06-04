@@ -1,9 +1,10 @@
 import React from "react";
 import { Card, CardBody, CardHeader, CardFooter } from "reactstrap";
-import {Link} from 'react-router-dom'
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 import "./style.css";
 
-function ProduccionRead({ produccion }) {
+function ProduccionRead({ produccion, user }) {
   return (
     <div className="row p-3">
       {produccion.map((p) => (
@@ -14,9 +15,16 @@ function ProduccionRead({ produccion }) {
               <p>Cantidad pedida: {p.cantidad_pedida}</p>
               <p>Masa: {p.masa} </p>
             </CardBody>
-            <CardFooter  className="cabecera">
-              <Link className="btn button-detail" to={`/produccion/${p.idProducto}`}>Detalle</Link>
-            </CardFooter>
+            {user ? (
+              <CardFooter className="cabecera">
+                <Link
+                  className="btn button-detail"
+                  to={`/produccion/${p.idProducto}`}
+                >
+                  Detalle
+                </Link>
+              </CardFooter>
+            ) : null}
           </Card>
         </div>
       ))}
@@ -24,4 +32,7 @@ function ProduccionRead({ produccion }) {
   );
 }
 
-export default ProduccionRead;
+const mapStateToProps = (state) => ({
+  user: state.auth.isAuthenticated,
+});
+export default connect(mapStateToProps, null)(ProduccionRead);
