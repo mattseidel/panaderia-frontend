@@ -13,12 +13,10 @@ class Index extends Component {
   }
   componentDidMount() {
     this.props.getProduccion();
-    console.log('mostrando las recetas');
-    console.log(this.props.recetas);
   }
   componentDidUpdate(prevProps, prevState) {
-    if(prevProps.recetas !== this.props.recetas) console.log(this.props.recetas);
-    
+    if (prevProps.recetas !== this.props.recetas)
+      console.log(this.props.recetas);
   }
   render() {
     if (this.props.recetas.loading && this.props.produccion.isLoading) {
@@ -26,7 +24,8 @@ class Index extends Component {
     }
     return (
       <div className="container">
-        <ProduccionRead produccion={this.props.produccion.produccion} />
+          <ProduccionRead produccion={this.props.produccion.produccion} />
+        
         <AddProduccion recetas={this.props.recetas.recipes} />
       </div>
     );

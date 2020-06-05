@@ -5,6 +5,10 @@ import { connect } from "react-redux";
 import "./style.css";
 
 function ProduccionRead({ produccion, user }) {
+
+  if(produccion[0].nombre ==='') return(
+    <h1>No hay información que mostrar aun</h1>
+  )
   return (
     <div className="row p-3">
       {produccion.map((p) => (
