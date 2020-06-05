@@ -39,11 +39,13 @@ const initialState = {
 export default function (state = initialState, action) {
   switch (action.type) {
     case GET_PRODUCCION:
+      if (action.payload.length !== 0)
       return {
         ...state,
         isLoading: false,
         produccion: action.payload,
       };
+      else return {...state, isLoading: false}
     case ADD_PRODUCCION:
       window.location.replace('/')
       return{

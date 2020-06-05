@@ -32,6 +32,13 @@ class RecetaCabeza extends Component {
     const { loading } = this.props.receta;
     if (loading) {
       return <Loading></Loading>;
+    } else if (recipes[0].nombre === "") {
+      return (
+        <div className="conta">
+          <h1>Aun no se ha agregado ninguna receta</h1>
+          {this.props.user.isAuthenticated ? <AddRecipeModal /> : null}
+        </div>
+      );
     } else {
       return (
         <Container className="mt-2 p-4">

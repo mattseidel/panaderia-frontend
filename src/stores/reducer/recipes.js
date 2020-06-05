@@ -6,7 +6,7 @@ import {
 } from "../action/types";
 
 const initialState = {
-  recipes: [{nombre_receta:'',producto:'', comentarios:'',ulima_modificacion:'' }],
+  recipes: [{idProducto: 0, nombre:'',producto:'', comentarios:'',ulima_modificacion:'' }],
   loading: false,
 };
 
@@ -14,11 +14,13 @@ export default function (state = initialState, action) {
   switch (action.type) {
     case GET_RECIPES:
       console.log(action.payload)
+      if (action.payload.length !== 0)
       return {
         ...state,
         recipes: action.payload,
         loading: false,
       };
+      else return {...state, loading: false}
     case DELETE_RECIPES:
       return {
         ...state,

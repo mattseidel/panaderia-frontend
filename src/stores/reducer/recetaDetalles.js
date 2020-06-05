@@ -17,12 +17,14 @@ const initialState = {
 export default function (state = initialState, action) {
   switch (action.type) {
     case GET_RECIPE_DETAIL:
+      if (action.payload.length !== 0)
       return {
         ...state,
         isLoading: false,
         data: action.payload.data,
         cuerpo: action.payload.cuerpo,
       };
+      else return {...state, isLoading: false}
     case ADD_MATERIA_PRIMA:
       return {
         ...state,

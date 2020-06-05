@@ -11,10 +11,10 @@ import { returnErrors } from "./errorAction";
 export const getProduccion = () => (dispatch) => {
   axios
     .get(`${DATABASE}/api/produccion`)
-    .then((res) => dispatch({ type: GET_PRODUCCION, payload: res.data }))
     .catch((err) => {
       dispatch(returnErrors(err.response.data, err.response.status));
-    });
+    })
+    .then((res) => dispatch({ type: GET_PRODUCCION, payload: res.data }))
 };
 
 export const addProduccion = (producto) => (dispatch, getState) => {

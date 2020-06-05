@@ -1,12 +1,11 @@
-import { GET_PLACE, GET_CATEGORY } from "./types";
+import { GET_PLACE, GET_CATEGORY, DATABASE} from "./types";
 import axios from "axios";
 import { returnErrors } from "./errorAction";
-import url from './config/database.json'
 
 export const getPlace = () => (dispatch) => {
   
   axios
-    .get(`${url}/api/ubicacion`)
+    .get(`${DATABASE}/api/ubicacion`)
     .then((res) => {
      
       dispatch({ type: GET_PLACE, payload: res.data });
@@ -19,7 +18,7 @@ export const getPlace = () => (dispatch) => {
 export const getCategory = () => (dispatch) => {
   
   axios
-    .get(`${url}/api/tipoProducto`)
+    .get(`${DATABASE}/api/tipoProducto`)
     .then((res) => {
      
       dispatch({ type: GET_CATEGORY, payload: res.data });

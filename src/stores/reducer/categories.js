@@ -10,11 +10,13 @@ const initialState = {
 export default function (state = initialState, action) {
   switch (action.type) {
     case GET_PLACE:
+      if(action.payload.data.length !== 0)
       return {
         ...state,
         isLoading: false,
         place: action.payload.data,
       };
+      else return {...state, isLoading: false}
       case GET_CATEGORY:
         return {
           ...state,
