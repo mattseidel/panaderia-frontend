@@ -31,10 +31,10 @@ export const addProduccion = (producto) => (dispatch, getState) => {
 export const getProduccionProducto = (id) => (dispatch, getState) => {
   axios
     .get(`${DATABASE}/api/produccion/${id}`, tokenConfig(getState))
-    .then((res) => dispatch({ type: GET_PRODUCCION_PRODUCTO, payload: res.data }))
     .catch((err) =>
       dispatch(returnErrors(err.response.data, err.response.status))
-    );
+    )
+    .then((res) => dispatch({ type: GET_PRODUCCION_PRODUCTO, payload: res.data }))
 };
 
 export const tokenConfig = (getState) => {

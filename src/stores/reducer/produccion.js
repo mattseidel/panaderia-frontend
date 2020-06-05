@@ -57,7 +57,7 @@ export default function (state = initialState, action) {
         return{
           ...state,
           isLoading: false,
-          data: action.payload.data[0], 
+          data: action.payload.data, 
           materia: action.payload.materia,
         }
     case LOADING_PRODUCTO:

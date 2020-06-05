@@ -25,8 +25,7 @@ class Index extends Component {
     return (
       <div className="container">
           <ProduccionRead produccion={this.props.produccion.produccion} />
-        
-        <AddProduccion recetas={this.props.recetas.recipes} />
+        {this.props.user ? <AddProduccion recetas={this.props.recetas.recipes} /> : null}
       </div>
     );
   }
@@ -35,6 +34,7 @@ class Index extends Component {
 const mapStateToProps = (state) => ({
   produccion: state.produccion,
   recetas: state.receta,
+  user: state.auth.isAuthenticated,
 });
 
 export default connect(mapStateToProps, { getProduccion, getRecipes })(Index);

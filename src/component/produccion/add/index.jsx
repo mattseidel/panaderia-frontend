@@ -51,7 +51,7 @@ function AddProduccion({recetas, addProduccion}) {
             </Input>
           </FormGroup>
           <FormGroup>
-            <Label>Producto</Label>
+            <Label>Cantidad</Label>
             <Input
               name="cantidad_pedida"
               id="cantidad_pedida"
@@ -63,7 +63,7 @@ function AddProduccion({recetas, addProduccion}) {
             ></Input>
           </FormGroup>
           <FormGroup>
-            <Label>Producto</Label>
+            <Label>Masa</Label>
             <Input
               name="masa"
               id="masa"

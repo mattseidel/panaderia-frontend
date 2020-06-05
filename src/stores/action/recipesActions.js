@@ -4,7 +4,7 @@ import {
   GET_RECIPES,
   RECIPES_LOADING,
   GET_ERRORS,
-  DATABASE
+  DATABASE,
 } from "./types";
 import Axios from "axios";
 import { returnErrors } from "../action/errorAction";
@@ -70,15 +70,15 @@ export const addRecipe = (receta) => (dispatch, getState) => {
     config.headers["x-auth-token"] = token;
   }
   Axios.post(`${DATABASE}/api/producto`, receta, config)
+    .catch((err) => {
+      dispatch(returnErrors(err.response.data, err.response.status));
+    })
     .then((res) => {
       console.log(res);
       dispatch({
         type: ADD_RECIPES,
         payload: res.data,
       });
-    })
-    .catch((err) => {
-      dispatch(returnErrors(err.response.data, err.response.status));
     });
 };
 
